@@ -37,6 +37,9 @@
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Persona.cs" />
+    <Compile Include="Agregar.cs" />
+    <Compile Include="Borrar.cs" />
+    <Compile Include="Modificar.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
