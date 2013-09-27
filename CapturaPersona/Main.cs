@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 
 namespace CapturaPersona
 {
@@ -16,6 +17,9 @@ namespace CapturaPersona
 			case 1:
 				Console.Clear();
 				Console.WriteLine ("+++Bienvenido+++");
+				new Funciones().funcionAgregar();
+				Console.Clear();
+				new Funciones().imprimirTabla();
 				Console.ReadKey(true);
 				break;
 				
@@ -35,6 +39,7 @@ namespace CapturaPersona
 				Console.WriteLine("Seleccion Erronea");
 				break;
 			}
+
 		}
 	}
 }
