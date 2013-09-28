@@ -9,8 +9,10 @@ namespace CapturaPersona
 		{
 			int sel;
 
+		menu:
 			Console.WriteLine ("Bienvenido al directorio de Personas \n Menu:\n1)Capturar nueva Persona\n2)Modificar Datos de una Persona\n3)Borrar Persona ");
-			sel = Convert.ToInt32(Console.ReadLine());
+
+				sel = Convert.ToInt32(Console.ReadLine());
 
 			switch (sel) {
 
@@ -19,7 +21,6 @@ namespace CapturaPersona
 				Console.WriteLine ("+++Bienvenido+++");
 				new Funciones().funcionAgregar();
 				Console.Clear();
-				new Funciones().imprimirTabla();
 				Console.ReadKey(true);
 				break;
 				
@@ -37,7 +38,8 @@ namespace CapturaPersona
 
 			default:
 				Console.WriteLine("Seleccion Erronea");
-				break;
+				Console.Clear();
+				goto menu;
 			}
 
 		}
