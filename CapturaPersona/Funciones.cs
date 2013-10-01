@@ -5,7 +5,6 @@ namespace CapturaPersona
 {
 	public class Funciones
 	{
-		public Hashtable hTabla;
 		public Persona persona;
 		public int tam;
 
@@ -13,10 +12,22 @@ namespace CapturaPersona
 		{
 		}
 
-		public void funcionAgregar ()
+		public void imprimirTabla (Hashtable hTabla, int llave)
+		{
+			IDictionaryEnumerator numerador = hTabla.GetEnumerator ();
+			persona = new Persona();
+
+			while (numerador.MoveNext()) {
+
+				persona = (Persona)(hTabla[llave]);
+
+				Console.WriteLine("Codigo: " + persona.codigo + "\n" + "Nombre: " + persona.nombre + "/n" + "Telefono: " + persona.telefono + "Facebook: www.facebook.com/" + persona.faceTag);
+			}
+       
+		}
+		public Hashtable funcionAgregar(Hashtable hTabla)
 		{
 			int elem;
-			hTabla = new Hashtable();
 
 			Console.WriteLine ("Cuantos elementops desea agregar??");
 			elem = Convert.ToInt32 (Console.ReadLine ());
@@ -24,6 +35,7 @@ namespace CapturaPersona
 
 
 			for (int i=0; i<=elem-1; i++) {
+			retorno:
 
 				persona = new Persona ();
 
@@ -41,40 +53,38 @@ namespace CapturaPersona
 				Console.Write ("Facebook: www.facebook/");
 				persona.faceTag = Console.ReadLine ();
 
+				try{
 				hTabla.Add (persona.codigo, persona);
-				Console.Clear ();
+				}catch(Exception e){
+					Console.WriteLine("Codigo repetido");
+					goto retorno;
+				}
 			}
-			imprimirTabla(hTabla);
+			return hTabla;
 		}
 
-		public void imprimirTabla (Hashtable hTabla)
+		public Hashtable funcionModificar(Hashtable hTabla)
 		{
-			foreach (int key in hTabla.Keys)
-				Console.WriteLine (String.Format ("{0}: {1}", key, hTabla [key]));
-		
+			int buscar;
 
-			Console.WriteLine ("La tabla:"); 
+			Console.WriteLine ("cual registro dese modificar?");
+			buscar = Convert.ToInt32 (Console.ReadLine ());
+
+			if (hTabla.Contains(buscar)) {
+				Console.WriteLine("Si se encuentra el registro");
+				this.imprimirTabla(hTabla, buscar);
+
+				Console.WriteLine("Desea editarlo");
+				 
+				persona = new Persona();
 
 
-			IDictionaryEnumerator enumerador = hTabla.GetEnumerator(); 
-
-			while ( enumerador.MoveNext() ) { 
-
-				Persona Mos = new Persona();
-
-				Mos = (Persona)(hTabla[enumerador.Key]); 
-				Console.Write ("Codigo:"); 
-				Console.WriteLine (Mos.codigo); 
-				Console.Write ("Nombre:"); 
-				Console.WriteLine (Mos.nombre); 
-				Console.Write ("Telefono:"); 
-				Console.WriteLine (Mos.telefono); 
-				Console.Write ("Facebook: www.facebook.com/:"); 
-				Console.WriteLine (Mos.faceTag); 
-				Console.WriteLine();
 			}
+			else Console.WriteLine("no esta");
+
+
+			return hTabla;
 		}
-	
 	}
 }
 
