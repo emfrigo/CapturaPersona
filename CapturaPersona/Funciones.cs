@@ -54,7 +54,7 @@ namespace CapturaPersona
 
 				try{
 				hTabla.Add (persona.codigo, persona);
-				}catch(Exception e){
+				}catch(Exception ){
 					Console.WriteLine("\n*****Codigo repetido*****\n");
 					goto retorno;
 				}
@@ -69,11 +69,20 @@ namespace CapturaPersona
 
 			this.imprimirTabla(hTabla);
 
-			Console.WriteLine ("cual registro desea modificar?");
+			Console.WriteLine ("\ncual registro desea modificar?");
 			buscar = Convert.ToInt32 (Console.ReadLine ());
 
 			if (hTabla.ContainsKey(buscar)) {
-				
+
+				Persona persona = (Persona)(hTabla[buscar]);
+
+				Console.WriteLine(persona.codigo + ":\n");
+				Console.Write("Nuevo Nombre:");
+				persona.nombre = Console.ReadLine();
+				Console.Write("Nuevo Telefono: ");
+				persona.telefono = Console.ReadLine();
+				Console.WriteLine("Nuevo Face: www.facebook.com/");
+				persona.faceTag = Console.ReadLine();
 
 			}
 			else Console.WriteLine("no esta");
@@ -82,27 +91,28 @@ namespace CapturaPersona
 			return hTabla;
 		}
 
-		public Hashtable funcionEliminar(Hashtable hTabla)
+		public Hashtable funcionEliminar (Hashtable hTabla)
 		{
 			int eliminar;
-		retorno:
+			retorno:
 
-			Console.WriteLine("Que persona desea eliminar?");
-			this.imprimirTabla(hTabla);
+			Console.WriteLine ("Que persona desea eliminar?");
+			this.imprimirTabla (hTabla);
 
-			eliminar = Convert.ToInt32(Console.ReadLine());
+			eliminar = Convert.ToInt32 (Console.ReadLine ());
 
-			if(hTabla.ContainsKey(eliminar))
-				hTabla.Remove(eliminar);
+			if (hTabla.ContainsKey (eliminar))
+				hTabla.Remove (eliminar);
 
-			this.imprimirTabla(hTabla);
-			Console.WriteLine("Eliminar otro? \ns/n");
+			this.imprimirTabla (hTabla);
+			Console.WriteLine ("Eliminar otro? \ns/n");
 
-			char sel = Convert.ToChar(Console.ReadLine());
+			char sel = Convert.ToChar (Console.ReadLine ());
 
-			if(sel == 's')
+			if (sel == 's') {
+				Console.Clear();
 				goto retorno;
-
+			}
 			return hTabla;
 		}
 	}
