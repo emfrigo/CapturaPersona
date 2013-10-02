@@ -36,6 +36,7 @@ namespace CapturaPersona
 			case 3:
 				Console.Clear();
 				Console.WriteLine("+++Bienvenido+++");
+				new Funciones().funcionEliminar(hTabla);
 				Console.ReadKey(true);
 				break;
 

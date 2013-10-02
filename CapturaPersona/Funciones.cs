@@ -12,24 +12,23 @@ namespace CapturaPersona
 		{
 		}
 
-		public void imprimirTabla (Hashtable hTabla, int llave)
+		public void imprimirTabla (Hashtable hTabla)
 		{
-			IDictionaryEnumerator numerador = hTabla.GetEnumerator ();
-			persona = new Persona();
+			ICollection personas = hTabla.Values;
 
-			while (numerador.MoveNext()) {
-
-				persona = (Persona)(hTabla[llave]);
-
-				Console.WriteLine("Codigo: " + persona.codigo + "\n" + "Nombre: " + persona.nombre + "/n" + "Telefono: " + persona.telefono + "Facebook: www.facebook.com/" + persona.faceTag);
+			foreach(object objeto in personas)
+			{
+			    Persona persona = (Persona)(objeto);
+				Console.WriteLine("Codigo: " + persona.codigo + "\nNombre: " + persona.nombre + "\nTelefono: " + persona.telefono + "\nFacebook: www.facebook.com/" + persona.faceTag);
 			}
        
 		}
+
 		public Hashtable funcionAgregar(Hashtable hTabla)
 		{
 			int elem;
 
-			Console.WriteLine ("Cuantos elementops desea agregar??");
+			Console.WriteLine ("Cuantos elementos desea agregar??");
 			elem = Convert.ToInt32 (Console.ReadLine ());
 
 
@@ -56,10 +55,11 @@ namespace CapturaPersona
 				try{
 				hTabla.Add (persona.codigo, persona);
 				}catch(Exception e){
-					Console.WriteLine("Codigo repetido");
+					Console.WriteLine("\n*****Codigo repetido*****\n");
 					goto retorno;
 				}
 			}
+
 			return hTabla;
 		}
 
@@ -67,21 +67,41 @@ namespace CapturaPersona
 		{
 			int buscar;
 
-			Console.WriteLine ("cual registro dese modificar?");
+			this.imprimirTabla(hTabla);
+
+			Console.WriteLine ("cual registro desea modificar?");
 			buscar = Convert.ToInt32 (Console.ReadLine ());
 
-			if (hTabla.Contains(buscar)) {
-				Console.WriteLine("Si se encuentra el registro");
-				this.imprimirTabla(hTabla, buscar);
-
-				Console.WriteLine("Desea editarlo");
-				 
-				persona = new Persona();
-
+			if (hTabla.ContainsKey(buscar)) {
+				
 
 			}
 			else Console.WriteLine("no esta");
 
+
+			return hTabla;
+		}
+
+		public Hashtable funcionEliminar(Hashtable hTabla)
+		{
+			int eliminar;
+		retorno:
+
+			Console.WriteLine("Que persona desea eliminar?");
+			this.imprimirTabla(hTabla);
+
+			eliminar = Convert.ToInt32(Console.ReadLine());
+
+			if(hTabla.ContainsKey(eliminar))
+				hTabla.Remove(eliminar);
+
+			this.imprimirTabla(hTabla);
+			Console.WriteLine("Eliminar otro? \ns/n");
+
+			char sel = Convert.ToChar(Console.ReadLine());
+
+			if(sel == 's')
+				goto retorno;
 
 			return hTabla;
 		}
